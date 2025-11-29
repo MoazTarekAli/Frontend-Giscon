@@ -3,7 +3,7 @@ function App() {
     <>
       <p>test</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
