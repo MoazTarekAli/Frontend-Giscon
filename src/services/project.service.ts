@@ -8,7 +8,7 @@ import type {
   ProjectStaff,
   UpdateProjectStaffInput,
   PaginatedProjectStaffResponse,
-} from '../types/project.typs';
+} from '../types/project.types';
 
 export const projectService = {
   getAllProjects: async (
