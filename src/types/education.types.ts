@@ -27,9 +27,5 @@ export interface UpdateEducationInput {
 
 export interface PaginatedEducationResponse {
   data: Education[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-  };
+  total: number;
 }

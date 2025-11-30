@@ -27,9 +27,5 @@ export interface UpdateWorkInput {
 
 export interface PaginatedWorkResponse {
   data: WorkExperience[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-  };
+  total: number;
 }
