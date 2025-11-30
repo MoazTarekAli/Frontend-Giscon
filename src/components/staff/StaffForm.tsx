@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { Staff, CreateStaffInput, UpdateStaffInput } from '../../types/staff.types';
 import Input from '../common/Input';
 import Button from '../common/Button';
-import { validateEmail, validatePhone, validateRequired } from '../../utils/validation';
+import { validateRequired, validateEmail, validatePhone } from '../../utils/validation';
 
 interface StaffFormProps {
   staff?: Staff | null;
@@ -71,58 +71,71 @@ const StaffForm: React.FC<StaffFormProps> = ({ staff, onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <Input
-        label="Full Name"
-        value={formData.staff_name}
-        onChange={(value) => setFormData({ ...formData, staff_name: value })}
-        required
-        error={errors.staff_name}
-      />
-
-      <Input
-        label="Title"
-        value={formData.title || ''}
-        onChange={(value) => setFormData({ ...formData, title: value })}
-        placeholder="e.g., Senior Developer"
-      />
-
-      <Input
-        label="Email"
-        type="email"
-        value={formData.email}
-        onChange={(value) => setFormData({ ...formData, email: value })}
-        required
-        error={errors.email}
-      />
-
-      <Input
-        label="Phone"
-        type="tel"
-        value={formData.phone}
-        onChange={(value) => setFormData({ ...formData, phone: value })}
-        required
-        error={errors.phone}
-      />
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Summary
-        </label>
-        <textarea
-          value={formData.summary || ''}
-          onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-          rows={4}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          placeholder="Brief professional summary..."
+    <form onSubmit={handleSubmit} className="flex flex-col h-full">
+      <div className="space-y-4 flex-1 overflow-y-auto">
+        <Input
+          label="Full Name"
+          value={formData.staff_name}
+          onChange={(value) => setFormData({ ...formData, staff_name: value })}
+          required
+          error={errors.staff_name}
         />
+
+        <Input
+          label="Title"
+          value={formData.title || ''}
+          onChange={(value) => setFormData({ ...formData, title: value })}
+          placeholder="e.g., Senior Developer"
+        />
+
+        <Input
+          label="Email"
+          type="email"
+          value={formData.email}
+          onChange={(value) => setFormData({ ...formData, email: value })}
+          required
+          error={errors.email}
+        />
+
+        <Input
+          label="Phone"
+          type="tel"
+          value={formData.phone}
+          onChange={(value) => setFormData({ ...formData, phone: value })}
+          required
+          error={errors.phone}
+        />
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Summary
+          </label>
+          <textarea
+            value={formData.summary || ''}
+            onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
+            rows={3}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+            placeholder="Brief professional summary..."
+          />
+        </div>
       </div>
 
-      <div className="flex space-x-3 pt-4">
-        <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1">
+      <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 sticky bottom-0 bg-white">
+        <Button 
+          type="submit" 
+          variant="primary" 
+          disabled={isSubmitting} 
+          className="flex-1"
+        >
           {isSubmitting ? 'Saving...' : staff ? 'Update Staff' : 'Create Staff'}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button 
+          type="button" 
+          variant="secondary" 
+          onClick={onCancel} 
+          disabled={isSubmitting}
+          className="flex-1"
+        >
           Cancel
         </Button>
       </div>
