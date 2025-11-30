@@ -20,17 +20,17 @@ export interface ProjectStaff {
   project_id: number;
   project_name: string;
   project_description: string;
-  role_in_project: string;
+  staff_role: string;
 }
 
 export interface CreateProjectStaffInput {
   staff_id: number;
   project_id: number;
-  role_in_project: string;
+  staff_role: string;
 }
 
 export interface UpdateProjectStaffInput {
-  role_in_project?: string;
+  staff_role?: string;
 }
 
 export interface PaginatedProjectResponse {

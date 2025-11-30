@@ -33,12 +33,12 @@ export const projectService = {
     project_id: number,
     data: UpdateProjectInput
   ): Promise<Project> => {
-    const response = await api.put(`/project?${project_id}`, data);
+    const response = await api.put(`/project/${project_id}`, data);
     return response.data;
   },
 
   deleteProject: async (project_id: number): Promise<void> => {
-    await api.delete(`/project?${project_id}`);
+    await api.delete(`/project/${project_id}`);
   },
 
   // Project Staff
