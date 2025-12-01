@@ -4,10 +4,6 @@ import type {
   CreateProjectInput,
   UpdateProjectInput,
   PaginatedProjectResponse,
-  CreateProjectStaffInput,
-  ProjectStaff,
-  UpdateProjectStaffInput,
-  PaginatedProjectStaffResponse,
 } from '../types/project.types';
 
 export const projectService = {
@@ -39,32 +35,5 @@ export const projectService = {
 
   deleteProject: async (project_id: number): Promise<void> => {
     await api.delete(`/project/${project_id}`);
-  },
-
-  // Project Staff
-  getProjectStaff: async (
-    staff_id: number
-  ): Promise<PaginatedProjectStaffResponse> => {
-    const response = await api.get(`/project-staff/${staff_id}`);
-    return response.data;
-  },
-
-  addProjectStaff: async (
-    data: CreateProjectStaffInput
-  ): Promise<ProjectStaff> => {
-    const response = await api.post('/project-staff', data);
-    return response.data;
-  },
-
-  updateProjectStaff: async (
-    role_id: number,
-    data: UpdateProjectStaffInput
-  ): Promise<ProjectStaff> => {
-    const response = await api.put(`/project-staff/${role_id}`, data);
-    return response.data;
-  },
-
-  deleteProjectStaff: async (role_id: number): Promise<void> => {
-    await api.delete(`/project-staff/${role_id}`);
   },
 };

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { Project } from '../../types/project.types';
-import ProjectStaffManager from './ProjectStaffManager';
 import ProjectTechnologyManager from '../technology/ProjectTechnologyManager';
 import Card from '../common/Card';
 
@@ -16,7 +15,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
 
   const tabs = [
     { id: 'overview' as TabType, label: 'Overview' },
-    { id: 'team' as TabType, label: 'Team Members' },
     { id: 'technologies' as TabType, label: 'Technologies' },
   ];
 
@@ -101,12 +99,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
               </Card>
             )}
 
-            {activeTab === 'team' && (
-              <div>
-                <ProjectStaffManager projectId={project.project_id} />
-              </div>
-            )}
-
+            {/* Technologies */}
             {activeTab === 'technologies' && (
               <div>
                 <ProjectTechnologyManager projectId={project.project_id} />
