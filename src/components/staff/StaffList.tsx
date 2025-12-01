@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Staff } from '../../types/staff.types';
 import Button from '../common/Button';
-import Card from '../common/Card';
 
 interface StaffListProps {
   staff: Staff[];
@@ -14,8 +13,11 @@ const StaffList: React.FC<StaffListProps> = ({ staff, onEdit, onDelete, onViewDe
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {staff.map((member) => (
-        <Card key={member.staff_id}>
-          <div className="space-y-3">
+        <div 
+          key={member.staff_id}
+          className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
+        >
+          <div className="flex-1 space-y-3">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">{member.staff_name}</h3>
               {member.title && <p className="text-sm text-gray-600">{member.title}</p>}
@@ -31,35 +33,35 @@ const StaffList: React.FC<StaffListProps> = ({ staff, onEdit, onDelete, onViewDe
             {member.summary && (
               <p className="text-sm text-gray-600 line-clamp-3">{member.summary}</p>
             )}
-            <div className="flex space-x-2 pt-2">
-              <Button
-                variant="primary"
-                onClick={() => onViewDetails(member)}
-                className="flex-1 text-sm py-1.5"
-              >
-                View Details
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={() => onEdit(member)}
-                className="text-sm py-1.5"
-              >
-                Edit
-              </Button>
-              <Button
-                variant="danger"
-                onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this staff member?')) {
-                    onDelete(member.staff_id);
-                  }
-                }}
-                className="text-sm py-1.5"
-              >
-                Delete
-              </Button>
-            </div>
           </div>
-        </Card>
+          <div className="flex gap-2 pt-4 mt-4 border-t border-gray-100">
+            <Button
+              variant="primary"
+              onClick={() => onViewDetails(member)}
+              className="flex-1 text-sm py-2"
+            >
+              View Details
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => onEdit(member)}
+              className="flex-1 text-sm py-2"
+            >
+              Edit
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                if (window.confirm('Are you sure you want to delete this staff member?')) {
+                  onDelete(member.staff_id);
+                }
+              }}
+              className="flex-1 text-sm py-2"
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
       ))}
     </div>
   );

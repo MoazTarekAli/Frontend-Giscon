@@ -2,33 +2,38 @@ import React, { useState, useEffect } from 'react';
 import type { Staff } from '../../types/staff.types';
 import type { Education, CreateEducationInput } from '../../types/education.types';
 import type { WorkExperience, CreateWorkInput } from '../../types/work.types';
+import type { CreateProjectStaffInput, ProjectStaff, UpdateProjectStaffInput } from '../../types/projectstaff.types';
 import { useEducation } from '../../hooks/useEducation';
 import { useWork } from '../../hooks/useWork';
-// Remove this unused import:
-// import { useStaffSkills } from '../../hooks/useSkills';
+import { useProjectStaff } from '../../hooks/useProjectStaff';
+import { useProjects } from '../../hooks/useProjects';
 import EducationList from '../education/EducationList';
 import EducationForm from '../education/EducationForm';
 import WorkList from '../work/WorkList';
 import WorkForm from '../work/WorkForm';
 import StaffSkillManager from '../skills/StaffSkillManager';
+import ProjectStaffList from '../projectstaff/ProjectStaffList';
+import ProjectStaffForm from '../projectstaff/ProjectStaffForm';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 import LoadingSpinner from '../common/LoadingSpinner';
-import Card from '../common/Card';
+import Card from '../common/Card';  
 
 interface StaffDetailProps {
   staff: Staff;
   onClose: () => void;
 }
 
-type TabType = 'overview' | 'education' | 'work' | 'skills';
+type TabType = 'overview' | 'education' | 'work' | 'skills' | 'projects';
 
 const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
   const [isWorkModalOpen, setIsWorkModalOpen] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
   const [selectedWork, setSelectedWork] = useState<WorkExperience | null>(null);
+  const [selectProject, setselectProject] = useState<ProjectStaff | null>(null);
 
   const {
     education,
@@ -48,32 +53,72 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
     deleteWorkExperience,
   } = useWork(staff.staff_id);
 
+  const {
+    projectStaff,
+    loading: projectStaffLoading,
+    fetchProjectStaff,
+    createProjectStaff,
+    updateProjectStaff,
+    deleteProjectStaff,
+  } = useProjectStaff(staff.staff_id);
+
+  const { projects, fetchProjects } = useProjects();
+
   useEffect(() => {
     fetchEducation();
     fetchWorkExperiences();
-  }, [fetchEducation, fetchWorkExperiences]);
+    fetchProjectStaff();
+    fetchProjects();
+  }, [fetchEducation, fetchWorkExperiences, fetchProjectStaff, fetchProjects]);
 
-  const handleEducationSubmit = async (data: CreateEducationInput) => {
-    if (selectedEducation) {
-      return await updateEducation(selectedEducation.education_id, data);
-    } else {
-      return await createEducation(data);
+  const handleEducationSubmit = async (data: CreateEducationInput): Promise<boolean> => {
+    try {
+      if (selectedEducation) {
+        await updateEducation(selectedEducation.education_id, data);
+      } else {
+        await createEducation(data);
+      }
+      setIsEducationModalOpen(false);
+      setSelectedEducation(null);
+      return true;
+    } catch (error) {
+      console.error('Failed to submit education:', error);
+      return false;
     }
   };
 
-  const handleWorkSubmit = async (data: CreateWorkInput) => {
-    if (selectedWork) {
-      return await updateWorkExperience(selectedWork.work_id, data);
-    } else {
-      return await createWorkExperience(data);
+  const handleWorkSubmit = async (data: CreateWorkInput): Promise<boolean> => {
+    try {
+      if (selectedWork) {
+        await updateWorkExperience(selectedWork.work_id, data);
+      } else {
+        await createWorkExperience(data);
+      }
+      setIsWorkModalOpen(false);
+      setSelectedWork(null);
+      return true;
+    } catch (error) {
+      console.error('Failed to submit work:', error);
+      return false;
     }
+  };
+
+  const handleProjectSubmit = async (data: CreateProjectStaffInput | UpdateProjectStaffInput): Promise<void> => {
+    if (selectProject) {
+      await updateProjectStaff(selectProject.role_id, data as UpdateProjectStaffInput);
+    } else {
+      await createProjectStaff(data as CreateProjectStaffInput);
+    }
+    setIsProjectModalOpen(false);
+    setselectProject(null);
   };
 
   const tabs = [
     { id: 'overview' as TabType, label: 'Overview' },
-    { id: 'education' as TabType, label: 'Education' },
-    { id: 'work' as TabType, label: 'Work Experience' },
+    { id: 'education' as TabType, label: 'Educations' },
+    { id: 'work' as TabType, label: 'Work Experiences' },
     { id: 'skills' as TabType, label: 'Skills' },
+    { id: 'projects' as TabType, label: 'Projects' },
   ];
 
   return (
@@ -184,10 +229,31 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
                 <StaffSkillManager staffId={staff.staff_id} />
               </div>
             )}
+
+            {activeTab === 'projects' && (
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-semibold">Role in Projects</h3>
+                  <Button onClick={() => { setselectProject(null); setIsProjectModalOpen(true); }}>
+                    Add role in project
+                  </Button>
+                </div>
+                {projectStaffLoading ? (
+                  <LoadingSpinner />
+                ) : (
+                  <ProjectStaffList
+                    projectsStaff={projectStaff}
+                    onEdit={(project) => { setselectProject(project); setIsProjectModalOpen(true); }}
+                    onDelete={deleteProjectStaff}  
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
 
+      {/* Education Modal */}
       <Modal
         isOpen={isEducationModalOpen}
         onClose={() => { setIsEducationModalOpen(false); setSelectedEducation(null); }}
@@ -202,6 +268,7 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
         />
       </Modal>
 
+      {/* Work Modal */}
       <Modal
         isOpen={isWorkModalOpen}
         onClose={() => { setIsWorkModalOpen(false); setSelectedWork(null); }}
@@ -213,6 +280,26 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
           work={selectedWork}
           onSubmit={handleWorkSubmit}
           onCancel={() => { setIsWorkModalOpen(false); setSelectedWork(null); }}
+        />
+      </Modal>
+
+      {/* Project Staff Modal */}
+      <Modal
+        isOpen={isProjectModalOpen}
+        onClose={() => { setIsProjectModalOpen(false); setselectProject(null); }}
+        title={selectProject ? 'Edit Role in Project' : 'Add Role in Project'}
+        size="lg"
+      >
+        <ProjectStaffForm
+          projectStaff={selectProject}
+          onSubmit={handleProjectSubmit}
+          onCancel={() => { setIsProjectModalOpen(false); setselectProject(null); }}
+          projects={projects.map((p) => ({
+            project_id: p.project_id,
+            project_name: p.project_name,
+          }))}
+          staffId={staff.staff_id}
+          staffName={staff.staff_name}
         />
       </Modal>
     </div>

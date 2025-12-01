@@ -31,7 +31,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete, o
                 <Button
                   variant="primary"
                   onClick={() => onViewDetails(project)}
-                  className="flex-1 text-sm py-1.5"
+                  className="flex-1 text-sm py-2"
                 >
                   View
                 </Button>
@@ -39,7 +39,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete, o
               <Button
                 variant="secondary"
                 onClick={() => onEdit(project)}
-                className="text-sm py-1.5"
+                className="flex-1 text-sm py-2"
               >
                 Edit
               </Button>
@@ -50,7 +50,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete, o
                     onDelete(project.project_id);
                   }
                 }}
-                className="text-sm py-1.5"
+                className="flex-1 text-sm py-2"
               >
                 Delete
               </Button>

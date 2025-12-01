@@ -72,7 +72,7 @@ const StaffForm: React.FC<StaffFormProps> = ({ staff, onSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col h-full">
-      <div className="space-y-4 flex-1 overflow-y-auto">
+      <div className="space-y-4">
         <Input
           label="Full Name"
           value={formData.staff_name}

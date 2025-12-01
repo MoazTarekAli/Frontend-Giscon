@@ -106,10 +106,19 @@ const CVPage: React.FC = () => {
 
         {cvHtml && !cvLoading && (
           <Card title="CV Preview">
-            <div 
-              className="cv-preview prose max-w-none"
-              dangerouslySetInnerHTML={{ __html: cvHtml }}
-            />
+            <div className="bg-gray-100 p-4 rounded-lg">
+              <iframe
+                title="CV Preview"
+                srcDoc={cvHtml}
+                className="w-full bg-white rounded shadow-lg"
+                style={{ 
+                  height: '1000px',
+                  border: 'none',
+                  display: 'block'
+                }}
+                sandbox="allow-same-origin"
+              />
+            </div>
           </Card>
         )}
 
