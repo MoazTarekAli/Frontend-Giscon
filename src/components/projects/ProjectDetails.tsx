@@ -8,7 +8,7 @@ interface ProjectDetailProps {
   onClose: () => void;
 }
 
-type TabType = 'overview' | 'team' | 'technologies';
+type TabType = 'overview' | 'technologies';
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
   const [activeTab, setActiveTab] = useState<TabType>('overview');

@@ -4,6 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+        host: 'localhost', // Or 'localhost', or a specific IP address
+        port: 4000,      
+      },
   plugins: [
     react({
       babel: {

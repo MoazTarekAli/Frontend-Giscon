@@ -114,7 +114,7 @@ export const useStaff = () => {
 
   useEffect(() => {
     fetchStaff(1);
-  }, []);
+  }, [fetchStaff]);
 
   return {
     staff,
