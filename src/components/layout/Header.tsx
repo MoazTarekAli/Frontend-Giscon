@@ -9,7 +9,9 @@ const Header: React.FC = () => {
             <h1 className="text-2xl font-bold text-primary-600">CV Builder</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">GISCON CV Management System</span>
+            <span className="text-sm text-gray-600">
+              GISCON CV Management System
+            </span>
           </div>
         </div>
       </div>

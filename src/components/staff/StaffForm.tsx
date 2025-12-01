@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import type { Staff, CreateStaffInput, UpdateStaffInput } from '../../types/staff.types';
+import type {
+  Staff,
+  CreateStaffInput,
+  UpdateStaffInput,
+} from '../../types/staff.types';
 import Input from '../common/Input';
 import Button from '../common/Button';
-import { validateRequired, validateEmail, validatePhone } from '../../utils/validation';
+import {
+  validateRequired,
+  validateEmail,
+  validatePhone,
+} from '../../utils/validation';
 
 interface StaffFormProps {
   staff?: Staff | null;
@@ -59,7 +67,7 @@ const StaffForm: React.FC<StaffFormProps> = ({ staff, onSubmit, onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
 
     setIsSubmitting(true);
@@ -112,7 +120,9 @@ const StaffForm: React.FC<StaffFormProps> = ({ staff, onSubmit, onCancel }) => {
           </label>
           <textarea
             value={formData.summary || ''}
-            onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, summary: e.target.value })
+            }
             rows={3}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
             placeholder="Brief professional summary..."
@@ -121,18 +131,18 @@ const StaffForm: React.FC<StaffFormProps> = ({ staff, onSubmit, onCancel }) => {
       </div>
 
       <div className="flex gap-3 pt-4 mt-4 border-t border-gray-200 sticky bottom-0 bg-white">
-        <Button 
-          type="submit" 
-          variant="primary" 
-          disabled={isSubmitting} 
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
           className="flex-1"
         >
           {isSubmitting ? 'Saving...' : staff ? 'Update Staff' : 'Create Staff'}
         </Button>
-        <Button 
-          type="button" 
-          variant="secondary" 
-          onClick={onCancel} 
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
           disabled={isSubmitting}
           className="flex-1"
         >

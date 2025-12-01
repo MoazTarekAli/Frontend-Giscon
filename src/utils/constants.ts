@@ -6,7 +6,7 @@ export const SKILL_TYPES = [
   'Languages',
   'Tools',
   'Frameworks',
-  'Other'
+  'Other',
 ];
 
 export const API_ERROR_MESSAGES = {

@@ -8,7 +8,11 @@ export const validatePhone = (phone: string): boolean => {
   if (!phone || !phone.trim()) return false;
   const phoneRegex = /^[\d\s+()-]+$/;
   const digitsOnly = phone.replace(/\D/g, '');
-  return phoneRegex.test(phone.trim()) && digitsOnly.length >= 10 && digitsOnly.length <= 15;
+  return (
+    phoneRegex.test(phone.trim()) &&
+    digitsOnly.length >= 10 &&
+    digitsOnly.length <= 15
+  );
 };
 
 export const validateRequired = (value: string | undefined): boolean => {

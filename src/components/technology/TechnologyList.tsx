@@ -9,7 +9,11 @@ interface TechnologyListProps {
   onDelete: (id: number) => void;
 }
 
-const TechnologyList: React.FC<TechnologyListProps> = ({ technologies, onEdit, onDelete }) => {
+const TechnologyList: React.FC<TechnologyListProps> = ({
+  technologies,
+  onEdit,
+  onDelete,
+}) => {
   if (technologies.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">
@@ -23,7 +27,9 @@ const TechnologyList: React.FC<TechnologyListProps> = ({ technologies, onEdit, o
       {technologies.map((technology) => (
         <Card key={technology.technology_id}>
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-900">{technology.technology_name}</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {technology.technology_name}
+            </h3>
             <div className="flex space-x-2">
               <Button
                 variant="secondary"
@@ -35,7 +41,11 @@ const TechnologyList: React.FC<TechnologyListProps> = ({ technologies, onEdit, o
               <Button
                 variant="danger"
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this technology?')) {
+                  if (
+                    window.confirm(
+                      'Are you sure you want to delete this technology?'
+                    )
+                  ) {
                     onDelete(technology.technology_id);
                   }
                 }}

@@ -9,7 +9,11 @@ interface EducationListProps {
   onDelete: (id: number) => void;
 }
 
-const EducationList: React.FC<EducationListProps> = ({ education, onEdit, onDelete }) => {
+const EducationList: React.FC<EducationListProps> = ({
+  education,
+  onEdit,
+  onDelete,
+}) => {
   if (education.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">
@@ -47,7 +51,11 @@ const EducationList: React.FC<EducationListProps> = ({ education, onEdit, onDele
               <Button
                 variant="danger"
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this education record?')) {
+                  if (
+                    window.confirm(
+                      'Are you sure you want to delete this education record?'
+                    )
+                  ) {
                     onDelete(edu.education_id);
                   }
                 }}

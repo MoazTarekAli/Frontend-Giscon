@@ -10,7 +10,11 @@ interface ProjectFormProps {
   onCancel: () => void;
 }
 
-const ProjectForm: React.FC<ProjectFormProps> = ({ project, onSubmit, onCancel }) => {
+const ProjectForm: React.FC<ProjectFormProps> = ({
+  project,
+  onSubmit,
+  onCancel,
+}) => {
   const getInitialFormData = (): CreateProjectInput => {
     if (project) {
       return {
@@ -24,7 +28,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onSubmit, onCancel }
     };
   };
 
-  const [formData, setFormData] = useState<CreateProjectInput>(getInitialFormData());
+  const [formData, setFormData] =
+    useState<CreateProjectInput>(getInitialFormData());
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -45,13 +50,13 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onSubmit, onCancel }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
 
     setIsSubmitting(true);
     const success = await onSubmit(formData);
     setIsSubmitting(false);
-    
+
     if (success) {
       onCancel();
     }
@@ -74,7 +79,9 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onSubmit, onCancel }
         </label>
         <textarea
           value={formData.project_description}
-          onChange={(e) => setFormData({ ...formData, project_description: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, project_description: e.target.value })
+          }
           rows={4}
           className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
             errors.project_description ? 'border-red-500' : 'border-gray-300'
@@ -82,15 +89,31 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onSubmit, onCancel }
           placeholder="Describe the project goals, features, and outcomes..."
         />
         {errors.project_description && (
-          <p className="mt-1 text-sm text-red-500">{errors.project_description}</p>
+          <p className="mt-1 text-sm text-red-500">
+            {errors.project_description}
+          </p>
         )}
       </div>
 
       <div className="flex space-x-3 pt-4">
-        <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1">
-          {isSubmitting ? 'Saving...' : project ? 'Update Project' : 'Create Project'}
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
+          className="flex-1"
+        >
+          {isSubmitting
+            ? 'Saving...'
+            : project
+              ? 'Update Project'
+              : 'Create Project'}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
       </div>

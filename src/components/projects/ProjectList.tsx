@@ -10,7 +10,12 @@ interface ProjectListProps {
   onViewDetails?: (project: Project) => void;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete, onViewDetails }) => {
+const ProjectList: React.FC<ProjectListProps> = ({
+  projects,
+  onEdit,
+  onDelete,
+  onViewDetails,
+}) => {
   if (projects.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">
@@ -24,8 +29,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete, o
       {projects.map((project) => (
         <Card key={project.project_id}>
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-900">{project.project_name}</h3>
-            <p className="text-sm text-gray-600 line-clamp-3">{project.project_description}</p>
+            <h3 className="text-lg font-semibold text-gray-900">
+              {project.project_name}
+            </h3>
+            <p className="text-sm text-gray-600 line-clamp-3">
+              {project.project_description}
+            </p>
             <div className="flex space-x-2 pt-2">
               {onViewDetails && (
                 <Button
@@ -46,7 +55,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete, o
               <Button
                 variant="danger"
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this project?')) {
+                  if (
+                    window.confirm(
+                      'Are you sure you want to delete this project?'
+                    )
+                  ) {
                     onDelete(project.project_id);
                   }
                 }}

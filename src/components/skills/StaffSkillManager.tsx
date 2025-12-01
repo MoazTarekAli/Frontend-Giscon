@@ -8,7 +8,13 @@ interface StaffSkillManagerProps {
 }
 
 const StaffSkillManager: React.FC<StaffSkillManagerProps> = ({ staffId }) => {
-  const { staffSkills, loading: staffSkillsLoading, fetchStaffSkills, addStaffSkill, removeStaffSkill } = useStaffSkills(staffId);
+  const {
+    staffSkills,
+    loading: staffSkillsLoading,
+    fetchStaffSkills,
+    addStaffSkill,
+    removeStaffSkill,
+  } = useStaffSkills(staffId);
   const { skills, loading: skillsLoading, fetchSkills } = useSkills();
   const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
 
@@ -19,7 +25,7 @@ const StaffSkillManager: React.FC<StaffSkillManagerProps> = ({ staffId }) => {
 
   const handleAddSkill = async () => {
     if (!selectedSkillId) return;
-    
+
     const success = await addStaffSkill(selectedSkillId);
     if (success) {
       setSelectedSkillId(null);
@@ -43,7 +49,9 @@ const StaffSkillManager: React.FC<StaffSkillManagerProps> = ({ staffId }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Skills</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Current Skills
+        </h3>
         {staffSkills.length === 0 ? (
           <p className="text-gray-500 text-sm">No skills added yet.</p>
         ) : (
@@ -55,13 +63,19 @@ const StaffSkillManager: React.FC<StaffSkillManagerProps> = ({ staffId }) => {
               >
                 <span className="text-sm font-medium">{skill.skill_name}</span>
                 {skill.skill_type && (
-                  <span className="text-xs text-primary-600">({skill.skill_type})</span>
+                  <span className="text-xs text-primary-600">
+                    ({skill.skill_type})
+                  </span>
                 )}
                 <button
                   onClick={() => handleRemoveSkill(skill.skill_id)}
                   className="text-primary-700 hover:text-primary-900"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -76,7 +90,9 @@ const StaffSkillManager: React.FC<StaffSkillManagerProps> = ({ staffId }) => {
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Add New Skill</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Add New Skill
+        </h3>
         <div className="flex space-x-3">
           <select
             value={selectedSkillId || ''}

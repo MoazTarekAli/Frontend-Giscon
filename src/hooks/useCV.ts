@@ -22,20 +22,23 @@ export const useCV = () => {
     }
   }, []);
 
-  const downloadPDF = useCallback(async (staffId: number, staffName: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      await cvService.downloadCVPDF(staffId, staffName);
-      return true;
-    } catch (err) {
-      setError('Failed to download CV PDF');
-      console.error(err);
-      return false;
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const downloadPDF = useCallback(
+    async (staffId: number, staffName: string) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await cvService.downloadCVPDF(staffId, staffName);
+        return true;
+      } catch (err) {
+        setError('Failed to download CV PDF');
+        console.error(err);
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
   const clearCV = useCallback(() => {
     setCvHtml('');

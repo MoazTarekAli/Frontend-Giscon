@@ -26,13 +26,25 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
         <div className="inline-block w-full max-w-4xl my-8 text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
           {/* Header */}
           <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900">{project.project_name}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {project.project_name}
+            </h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-500 focus:outline-none"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -61,18 +73,28 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
             {activeTab === 'overview' && (
               <Card>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Project Description</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap">{project.project_description}</p>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Project Description
+                  </h3>
+                  <p className="text-gray-700 whitespace-pre-wrap">
+                    {project.project_description}
+                  </p>
                 </div>
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm font-medium text-gray-500">Project ID</p>
+                      <p className="text-sm font-medium text-gray-500">
+                        Project ID
+                      </p>
                       <p className="mt-1 text-gray-900">{project.project_id}</p>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-500">Project Name</p>
-                      <p className="mt-1 text-gray-900">{project.project_name}</p>
+                      <p className="text-sm font-medium text-gray-500">
+                        Project Name
+                      </p>
+                      <p className="mt-1 text-gray-900">
+                        {project.project_name}
+                      </p>
                     </div>
                   </div>
                 </div>

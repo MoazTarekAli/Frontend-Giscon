@@ -8,8 +8,17 @@ import Card from '../components/common/Card';
 
 const CVPage: React.FC = () => {
   const { staff, loading: staffLoading, fetchStaff } = useStaff();
-  const { cvHtml, loading: cvLoading, error, generateCV, downloadPDF, clearCV } = useCV();
-  const [selectedStaffId, setSelectedStaffId] = React.useState<number | null>(null);
+  const {
+    cvHtml,
+    loading: cvLoading,
+    error,
+    generateCV,
+    downloadPDF,
+    clearCV,
+  } = useCV();
+  const [selectedStaffId, setSelectedStaffId] = React.useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     fetchStaff(1);
@@ -22,7 +31,7 @@ const CVPage: React.FC = () => {
 
   const handleDownloadPDF = async () => {
     if (!selectedStaffId) return;
-    const selectedStaff = staff.find(s => s.staff_id === selectedStaffId);
+    const selectedStaff = staff.find((s) => s.staff_id === selectedStaffId);
     if (!selectedStaff) return;
     await downloadPDF(selectedStaffId, selectedStaff.staff_name);
   };
@@ -86,10 +95,7 @@ const CVPage: React.FC = () => {
                   >
                     Download PDF
                   </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={handleReset}
-                  >
+                  <Button variant="secondary" onClick={handleReset}>
                     Reset
                   </Button>
                 </>
@@ -111,10 +117,10 @@ const CVPage: React.FC = () => {
                 title="CV Preview"
                 srcDoc={cvHtml}
                 className="w-full bg-white rounded shadow-lg"
-                style={{ 
+                style={{
                   height: '1000px',
                   border: 'none',
-                  display: 'block'
+                  display: 'block',
                 }}
                 sandbox="allow-same-origin"
               />
@@ -124,12 +130,25 @@ const CVPage: React.FC = () => {
 
         {!cvHtml && !cvLoading && !error && (
           <div className="text-center py-12 text-gray-500">
-            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            <svg
+              className="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No CV Generated</h3>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">
+              No CV Generated
+            </h3>
             <p className="mt-1 text-sm text-gray-500">
-              Select a staff member and click "Generate CV Preview" to get started.
+              Select a staff member and click "Generate CV Preview" to get
+              started.
             </p>
           </div>
         )}

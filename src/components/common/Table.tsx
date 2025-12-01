@@ -14,16 +14,14 @@ interface TableProps<T> {
 }
 
 function Table<T extends Record<string, unknown>>({
-  data, 
-  columns, 
+  data,
+  columns,
   onRowClick,
-  className = '' 
+  className = '',
 }: TableProps<T>) {
   if (data.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
-        No data available
-      </div>
+      <div className="text-center py-8 text-gray-500">No data available</div>
     );
   }
 
@@ -47,11 +45,20 @@ function Table<T extends Record<string, unknown>>({
             <tr
               key={index}
               onClick={() => onRowClick?.(item)}
-              className={onRowClick ? 'hover:bg-gray-50 cursor-pointer transition-colors' : ''}
+              className={
+                onRowClick
+                  ? 'hover:bg-gray-50 cursor-pointer transition-colors'
+                  : ''
+              }
             >
               {columns.map((column) => (
-                <td key={String(column.key)} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {column.render ? column.render(item) : String(item[column.key])}
+                <td
+                  key={String(column.key)}
+                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                >
+                  {column.render
+                    ? column.render(item)
+                    : String(item[column.key])}
                 </td>
               ))}
             </tr>

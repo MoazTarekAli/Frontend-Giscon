@@ -1,6 +1,10 @@
 import { useState, useCallback } from 'react';
 import { workService } from '../services/work.service';
-import type { WorkExperience, CreateWorkInput, UpdateWorkInput } from '../types/work.types';
+import type {
+  WorkExperience,
+  CreateWorkInput,
+  UpdateWorkInput,
+} from '../types/work.types';
 
 export const useWork = (staffId?: number) => {
   const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([]);
@@ -22,53 +26,62 @@ export const useWork = (staffId?: number) => {
     }
   }, [staffId]);
 
-  const createWorkExperience = useCallback(async (data: CreateWorkInput) => {
-    setLoading(true);
-    setError(null);
-    try {
-      await workService.createWork(data);
-      await fetchWorkExperiences();
-      return true;
-    } catch (err) {
-      setError('Failed to create work experience');
-      console.error(err);
-      return false;
-    } finally {
-      setLoading(false);
-    }
-  }, [fetchWorkExperiences]);
+  const createWorkExperience = useCallback(
+    async (data: CreateWorkInput) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await workService.createWork(data);
+        await fetchWorkExperiences();
+        return true;
+      } catch (err) {
+        setError('Failed to create work experience');
+        console.error(err);
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchWorkExperiences]
+  );
 
-  const updateWorkExperience = useCallback(async (id: number, data: UpdateWorkInput) => {
-    setLoading(true);
-    setError(null);
-    try {
-      await workService.updateWork(id, data);
-      await fetchWorkExperiences();
-      return true;
-    } catch (err) {
-      setError('Failed to update work experience');
-      console.error(err);
-      return false;
-    } finally {
-      setLoading(false);
-    }
-  }, [fetchWorkExperiences]);
+  const updateWorkExperience = useCallback(
+    async (id: number, data: UpdateWorkInput) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await workService.updateWork(id, data);
+        await fetchWorkExperiences();
+        return true;
+      } catch (err) {
+        setError('Failed to update work experience');
+        console.error(err);
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchWorkExperiences]
+  );
 
-  const deleteWorkExperience = useCallback(async (id: number) => {
-    setLoading(true);
-    setError(null);
-    try {
-      await workService.deleteWork(id);
-      await fetchWorkExperiences();
-      return true;
-    } catch (err) {
-      setError('Failed to delete work experience');
-      console.error(err);
-      return false;
-    } finally {
-      setLoading(false);
-    }
-  }, [fetchWorkExperiences]);
+  const deleteWorkExperience = useCallback(
+    async (id: number) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await workService.deleteWork(id);
+        await fetchWorkExperiences();
+        return true;
+      } catch (err) {
+        setError('Failed to delete work experience');
+        console.error(err);
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchWorkExperiences]
+  );
 
   return {
     workExperiences,

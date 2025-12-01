@@ -8,20 +8,24 @@ import Modal from '../components/common/Modal';
 import Button from '../components/common/Button';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Pagination from '../components/common/Pagination';
-import type { Project, UpdateProjectInput, CreateProjectInput } from '../types/project.types';
+import type {
+  Project,
+  UpdateProjectInput,
+  CreateProjectInput,
+} from '../types/project.types';
 
 const ProjectsPage: React.FC = () => {
-  const { 
-    projects, 
-    loading, 
-    error, 
-    pagination, 
-    fetchProjects, 
-    createProject, 
-    updateProject, 
-    deleteProject 
+  const {
+    projects,
+    loading,
+    error,
+    pagination,
+    fetchProjects,
+    createProject,
+    updateProject,
+    deleteProject,
   } = useProjects();
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [detailProject, setDetailProject] = useState<Project | null>(null);
@@ -30,9 +34,14 @@ const ProjectsPage: React.FC = () => {
     fetchProjects(1);
   }, [fetchProjects]);
 
-  const handleSubmit = async (data: UpdateProjectInput | CreateProjectInput) => {
+  const handleSubmit = async (
+    data: UpdateProjectInput | CreateProjectInput
+  ) => {
     if (selectedProject) {
-      return await updateProject(selectedProject.project_id, data as UpdateProjectInput);
+      return await updateProject(
+        selectedProject.project_id,
+        data as UpdateProjectInput
+      );
     } else {
       return await createProject(data as CreateProjectInput);
     }
@@ -64,7 +73,9 @@ const ProjectsPage: React.FC = () => {
     <Layout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-gray-900">Projects Management</h2>
+          <h2 className="text-3xl font-bold text-gray-900">
+            Projects Management
+          </h2>
           <Button onClick={handleCreate}>Add New Project</Button>
         </div>
 

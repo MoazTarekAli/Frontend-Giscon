@@ -24,7 +24,9 @@ const SkillList: React.FC<SkillListProps> = ({ skills, onEdit, onDelete }) => {
         <Card key={skill.skill_id}>
           <div className="space-y-3">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">{skill.skill_name}</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {skill.skill_name}
+              </h3>
               {skill.skill_type && (
                 <span className="inline-block mt-1 px-2 py-1 text-xs font-medium bg-primary-100 text-primary-700 rounded">
                   {skill.skill_type}
@@ -42,7 +44,11 @@ const SkillList: React.FC<SkillListProps> = ({ skills, onEdit, onDelete }) => {
               <Button
                 variant="danger"
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this skill?')) {
+                  if (
+                    window.confirm(
+                      'Are you sure you want to delete this skill?'
+                    )
+                  ) {
                     onDelete(skill.skill_id);
                   }
                 }}

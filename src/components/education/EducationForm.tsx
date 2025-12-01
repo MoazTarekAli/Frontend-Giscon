@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import type { Education, CreateEducationInput } from '../../types/education.types';
+import type {
+  Education,
+  CreateEducationInput,
+} from '../../types/education.types';
 import Input from '../common/Input';
 import Button from '../common/Button';
 import { formatDateInput } from '../../utils/formatDate';
@@ -12,7 +15,12 @@ interface EducationFormProps {
   onCancel: () => void;
 }
 
-const EducationForm: React.FC<EducationFormProps> = ({ staffId, education, onSubmit, onCancel }) => {
+const EducationForm: React.FC<EducationFormProps> = ({
+  staffId,
+  education,
+  onSubmit,
+  onCancel,
+}) => {
   const getInitialFormData = (): CreateEducationInput => {
     if (education) {
       return {
@@ -34,7 +42,8 @@ const EducationForm: React.FC<EducationFormProps> = ({ staffId, education, onSub
     };
   };
 
-  const [formData, setFormData] = useState<CreateEducationInput>(getInitialFormData());
+  const [formData, setFormData] =
+    useState<CreateEducationInput>(getInitialFormData());
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -65,13 +74,13 @@ const EducationForm: React.FC<EducationFormProps> = ({ staffId, education, onSub
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
 
     setIsSubmitting(true);
     const success = await onSubmit(formData);
     setIsSubmitting(false);
-    
+
     if (success) {
       onCancel();
     }
@@ -91,7 +100,9 @@ const EducationForm: React.FC<EducationFormProps> = ({ staffId, education, onSub
       <Input
         label="Field of Study"
         value={formData.field_of_study || ''}
-        onChange={(value) => setFormData({ ...formData, field_of_study: value })}
+        onChange={(value) =>
+          setFormData({ ...formData, field_of_study: value })
+        }
         placeholder="e.g., Computer Science"
       />
 
@@ -122,10 +133,24 @@ const EducationForm: React.FC<EducationFormProps> = ({ staffId, education, onSub
       />
 
       <div className="flex space-x-3 pt-4">
-        <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1">
-          {isSubmitting ? 'Saving...' : education ? 'Update Education' : 'Add Education'}
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
+          className="flex-1"
+        >
+          {isSubmitting
+            ? 'Saving...'
+            : education
+              ? 'Update Education'
+              : 'Add Education'}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
       </div>

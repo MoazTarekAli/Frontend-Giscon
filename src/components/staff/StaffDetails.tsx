@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import type { Staff } from '../../types/staff.types';
-import type { Education, CreateEducationInput } from '../../types/education.types';
+import type {
+  Education,
+  CreateEducationInput,
+} from '../../types/education.types';
 import type { WorkExperience, CreateWorkInput } from '../../types/work.types';
-import type { CreateProjectStaffInput, ProjectStaff, UpdateProjectStaffInput } from '../../types/projectstaff.types';
+import type {
+  CreateProjectStaffInput,
+  ProjectStaff,
+  UpdateProjectStaffInput,
+} from '../../types/projectstaff.types';
 import { useEducation } from '../../hooks/useEducation';
 import { useWork } from '../../hooks/useWork';
 import { useProjectStaff } from '../../hooks/useProjectStaff';
@@ -17,7 +24,7 @@ import ProjectStaffForm from '../projectstaff/ProjectStaffForm';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 import LoadingSpinner from '../common/LoadingSpinner';
-import Card from '../common/Card';  
+import Card from '../common/Card';
 
 interface StaffDetailProps {
   staff: Staff;
@@ -31,7 +38,9 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
   const [isWorkModalOpen, setIsWorkModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-  const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
+  const [selectedEducation, setSelectedEducation] = useState<Education | null>(
+    null
+  );
   const [selectedWork, setSelectedWork] = useState<WorkExperience | null>(null);
   const [selectProject, setselectProject] = useState<ProjectStaff | null>(null);
 
@@ -71,7 +80,9 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
     fetchProjects();
   }, [fetchEducation, fetchWorkExperiences, fetchProjectStaff, fetchProjects]);
 
-  const handleEducationSubmit = async (data: CreateEducationInput): Promise<boolean> => {
+  const handleEducationSubmit = async (
+    data: CreateEducationInput
+  ): Promise<boolean> => {
     try {
       if (selectedEducation) {
         await updateEducation(selectedEducation.education_id, data);
@@ -103,9 +114,14 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
     }
   };
 
-  const handleProjectSubmit = async (data: CreateProjectStaffInput | UpdateProjectStaffInput): Promise<void> => {
+  const handleProjectSubmit = async (
+    data: CreateProjectStaffInput | UpdateProjectStaffInput
+  ): Promise<void> => {
     if (selectProject) {
-      await updateProjectStaff(selectProject.role_id, data as UpdateProjectStaffInput);
+      await updateProjectStaff(
+        selectProject.role_id,
+        data as UpdateProjectStaffInput
+      );
     } else {
       await createProjectStaff(data as CreateProjectStaffInput);
     }
@@ -126,13 +142,25 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
       <div className="min-h-screen px-4 text-center">
         <div className="inline-block w-full max-w-6xl my-8 text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
           <div className="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900">{staff.staff_name}</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {staff.staff_name}
+            </h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-500 focus:outline-none"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -162,7 +190,9 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm font-medium text-gray-500">Title</p>
-                      <p className="mt-1 text-gray-900">{staff.title || 'N/A'}</p>
+                      <p className="mt-1 text-gray-900">
+                        {staff.title || 'N/A'}
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-500">Email</p>
@@ -175,7 +205,9 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
                   </div>
                   {staff.summary && (
                     <div className="mt-4">
-                      <p className="text-sm font-medium text-gray-500">Summary</p>
+                      <p className="text-sm font-medium text-gray-500">
+                        Summary
+                      </p>
                       <p className="mt-1 text-gray-900">{staff.summary}</p>
                     </div>
                   )}
@@ -187,7 +219,12 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-semibold">Education Records</h3>
-                  <Button onClick={() => { setSelectedEducation(null); setIsEducationModalOpen(true); }}>
+                  <Button
+                    onClick={() => {
+                      setSelectedEducation(null);
+                      setIsEducationModalOpen(true);
+                    }}
+                  >
                     Add Education
                   </Button>
                 </div>
@@ -196,7 +233,10 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
                 ) : (
                   <EducationList
                     education={education}
-                    onEdit={(edu) => { setSelectedEducation(edu); setIsEducationModalOpen(true); }}
+                    onEdit={(edu) => {
+                      setSelectedEducation(edu);
+                      setIsEducationModalOpen(true);
+                    }}
                     onDelete={deleteEducation}
                   />
                 )}
@@ -207,7 +247,12 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-semibold">Work Experience</h3>
-                  <Button onClick={() => { setSelectedWork(null); setIsWorkModalOpen(true); }}>
+                  <Button
+                    onClick={() => {
+                      setSelectedWork(null);
+                      setIsWorkModalOpen(true);
+                    }}
+                  >
                     Add Work Experience
                   </Button>
                 </div>
@@ -216,7 +261,10 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
                 ) : (
                   <WorkList
                     workExperiences={workExperiences}
-                    onEdit={(work) => { setSelectedWork(work); setIsWorkModalOpen(true); }}
+                    onEdit={(work) => {
+                      setSelectedWork(work);
+                      setIsWorkModalOpen(true);
+                    }}
                     onDelete={deleteWorkExperience}
                   />
                 )}
@@ -234,7 +282,12 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-semibold">Role in Projects</h3>
-                  <Button onClick={() => { setselectProject(null); setIsProjectModalOpen(true); }}>
+                  <Button
+                    onClick={() => {
+                      setselectProject(null);
+                      setIsProjectModalOpen(true);
+                    }}
+                  >
                     Add role in project
                   </Button>
                 </div>
@@ -243,8 +296,11 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
                 ) : (
                   <ProjectStaffList
                     projectsStaff={projectStaff}
-                    onEdit={(project) => { setselectProject(project); setIsProjectModalOpen(true); }}
-                    onDelete={deleteProjectStaff}  
+                    onEdit={(project) => {
+                      setselectProject(project);
+                      setIsProjectModalOpen(true);
+                    }}
+                    onDelete={deleteProjectStaff}
                   />
                 )}
               </div>
@@ -256,7 +312,10 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
       {/* Education Modal */}
       <Modal
         isOpen={isEducationModalOpen}
-        onClose={() => { setIsEducationModalOpen(false); setSelectedEducation(null); }}
+        onClose={() => {
+          setIsEducationModalOpen(false);
+          setSelectedEducation(null);
+        }}
         title={selectedEducation ? 'Edit Education' : 'Add Education'}
         size="lg"
       >
@@ -264,14 +323,20 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
           staffId={staff.staff_id}
           education={selectedEducation}
           onSubmit={handleEducationSubmit}
-          onCancel={() => { setIsEducationModalOpen(false); setSelectedEducation(null); }}
+          onCancel={() => {
+            setIsEducationModalOpen(false);
+            setSelectedEducation(null);
+          }}
         />
       </Modal>
 
       {/* Work Modal */}
       <Modal
         isOpen={isWorkModalOpen}
-        onClose={() => { setIsWorkModalOpen(false); setSelectedWork(null); }}
+        onClose={() => {
+          setIsWorkModalOpen(false);
+          setSelectedWork(null);
+        }}
         title={selectedWork ? 'Edit Work Experience' : 'Add Work Experience'}
         size="lg"
       >
@@ -279,21 +344,30 @@ const StaffDetail: React.FC<StaffDetailProps> = ({ staff, onClose }) => {
           staffId={staff.staff_id}
           work={selectedWork}
           onSubmit={handleWorkSubmit}
-          onCancel={() => { setIsWorkModalOpen(false); setSelectedWork(null); }}
+          onCancel={() => {
+            setIsWorkModalOpen(false);
+            setSelectedWork(null);
+          }}
         />
       </Modal>
 
       {/* Project Staff Modal */}
       <Modal
         isOpen={isProjectModalOpen}
-        onClose={() => { setIsProjectModalOpen(false); setselectProject(null); }}
+        onClose={() => {
+          setIsProjectModalOpen(false);
+          setselectProject(null);
+        }}
         title={selectProject ? 'Edit Role in Project' : 'Add Role in Project'}
         size="lg"
       >
         <ProjectStaffForm
           projectStaff={selectProject}
           onSubmit={handleProjectSubmit}
-          onCancel={() => { setIsProjectModalOpen(false); setselectProject(null); }}
+          onCancel={() => {
+            setIsProjectModalOpen(false);
+            setselectProject(null);
+          }}
           projects={projects.map((p) => ({
             project_id: p.project_id,
             project_name: p.project_name,

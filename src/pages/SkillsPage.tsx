@@ -7,10 +7,23 @@ import Modal from '../components/common/Modal';
 import Button from '../components/common/Button';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Pagination from '../components/common/Pagination';
-import type { Skill, UpdateSkillInput, CreateSkillInput } from '../types/skill.types';
+import type {
+  Skill,
+  UpdateSkillInput,
+  CreateSkillInput,
+} from '../types/skill.types';
 
 const SkillsPage: React.FC = () => {
-  const { skills, loading, error, pagination, fetchSkills, createSkill, updateSkill, deleteSkill } = useSkills();
+  const {
+    skills,
+    loading,
+    error,
+    pagination,
+    fetchSkills,
+    createSkill,
+    updateSkill,
+    deleteSkill,
+  } = useSkills();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
 
@@ -20,7 +33,10 @@ const SkillsPage: React.FC = () => {
 
   const handleSubmit = async (data: UpdateSkillInput | CreateSkillInput) => {
     if (selectedSkill) {
-      return await updateSkill(selectedSkill.skill_id, data as UpdateSkillInput);
+      return await updateSkill(
+        selectedSkill.skill_id,
+        data as UpdateSkillInput
+      );
     } else {
       return await createSkill(data as CreateSkillInput);
     }
@@ -48,7 +64,9 @@ const SkillsPage: React.FC = () => {
     <Layout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-gray-900">Skills Management</h2>
+          <h2 className="text-3xl font-bold text-gray-900">
+            Skills Management
+          </h2>
           <Button onClick={handleCreate}>Add New Skill</Button>
         </div>
 
@@ -58,11 +76,7 @@ const SkillsPage: React.FC = () => {
           </div>
         )}
 
-        <SkillList
-          skills={skills}
-          onEdit={handleEdit}
-          onDelete={deleteSkill}
-        />
+        <SkillList skills={skills} onEdit={handleEdit} onDelete={deleteSkill} />
 
         <Pagination
           currentPage={pagination.page}

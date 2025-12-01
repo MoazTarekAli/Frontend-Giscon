@@ -9,7 +9,11 @@ interface WorkListProps {
   onDelete: (id: number) => void;
 }
 
-const WorkList: React.FC<WorkListProps> = ({ workExperiences, onEdit, onDelete }) => {
+const WorkList: React.FC<WorkListProps> = ({
+  workExperiences,
+  onEdit,
+  onDelete,
+}) => {
   if (workExperiences.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500">
@@ -27,14 +31,20 @@ const WorkList: React.FC<WorkListProps> = ({ workExperiences, onEdit, onDelete }
         >
           <div className="flex justify-between items-start">
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900">{work.work_title}</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {work.work_title}
+              </h3>
               <p className="text-gray-600">{work.company}</p>
               <p className="text-sm text-gray-500 mt-1">
                 {formatDate(work.start_date)} - {formatDate(work.end_date)}
               </p>
               <div className="mt-3">
-                <p className="text-sm font-medium text-gray-700">Responsibilities:</p>
-                <p className="text-sm text-gray-600 mt-1">{work.responsibilities}</p>
+                <p className="text-sm font-medium text-gray-700">
+                  Responsibilities:
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  {work.responsibilities}
+                </p>
               </div>
             </div>
             <div className="flex space-x-2 ml-4">
@@ -48,7 +58,11 @@ const WorkList: React.FC<WorkListProps> = ({ workExperiences, onEdit, onDelete }
               <Button
                 variant="danger"
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to delete this work experience?')) {
+                  if (
+                    window.confirm(
+                      'Are you sure you want to delete this work experience?'
+                    )
+                  ) {
                     onDelete(work.work_id);
                   }
                 }}

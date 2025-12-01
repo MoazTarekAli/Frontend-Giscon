@@ -8,7 +8,11 @@ import Modal from '../components/common/Modal';
 import Button from '../components/common/Button';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Pagination from '../components/common/Pagination';
-import type { Staff, CreateStaffInput, UpdateStaffInput } from '../types/staff.types';
+import type {
+  Staff,
+  CreateStaffInput,
+  UpdateStaffInput,
+} from '../types/staff.types';
 
 const StaffPage: React.FC = () => {
   const {

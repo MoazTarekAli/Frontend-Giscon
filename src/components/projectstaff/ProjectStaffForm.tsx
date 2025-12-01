@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import type { ProjectStaff, CreateProjectStaffInput, UpdateProjectStaffInput } from '../../types/projectstaff.types';
+import type {
+  ProjectStaff,
+  CreateProjectStaffInput,
+  UpdateProjectStaffInput,
+} from '../../types/projectstaff.types';
 import Input from '../common/Input';
 import Button from '../common/Button';
 import { validateRequired } from '../../utils/validation';
 
 interface ProjectStaffFormProps {
   projectStaff?: ProjectStaff | null;
-  onSubmit: (data: CreateProjectStaffInput | UpdateProjectStaffInput) => Promise<void>;
+  onSubmit: (
+    data: CreateProjectStaffInput | UpdateProjectStaffInput
+  ) => Promise<void>;
   onCancel: () => void;
   projects: Array<{ project_id: number; project_name: string }>;
   staffId: number;
@@ -133,8 +139,8 @@ const ProjectStaffForm: React.FC<ProjectStaffFormProps> = ({
           {isSubmitting
             ? 'Saving...'
             : projectStaff
-            ? 'Update Role'
-            : 'Add to Project'}
+              ? 'Update Role'
+              : 'Add to Project'}
         </Button>
         <Button
           type="button"

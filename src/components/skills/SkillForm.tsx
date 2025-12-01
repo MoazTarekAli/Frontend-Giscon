@@ -25,7 +25,8 @@ const SkillForm: React.FC<SkillFormProps> = ({ skill, onSubmit, onCancel }) => {
     };
   };
 
-  const [formData, setFormData] = useState<CreateSkillInput>(getInitialFormData());
+  const [formData, setFormData] =
+    useState<CreateSkillInput>(getInitialFormData());
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -42,13 +43,13 @@ const SkillForm: React.FC<SkillFormProps> = ({ skill, onSubmit, onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
 
     setIsSubmitting(true);
     const success = await onSubmit(formData);
     setIsSubmitting(false);
-    
+
     if (success) {
       onCancel();
     }
@@ -71,7 +72,9 @@ const SkillForm: React.FC<SkillFormProps> = ({ skill, onSubmit, onCancel }) => {
         </label>
         <select
           value={formData.skill_type || ''}
-          onChange={(e) => setFormData({ ...formData, skill_type: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, skill_type: e.target.value })
+          }
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         >
           <option value="">Select a type...</option>
@@ -84,10 +87,20 @@ const SkillForm: React.FC<SkillFormProps> = ({ skill, onSubmit, onCancel }) => {
       </div>
 
       <div className="flex space-x-3 pt-4">
-        <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1">
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
+          className="flex-1"
+        >
           {isSubmitting ? 'Saving...' : skill ? 'Update Skill' : 'Add Skill'}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
       </div>

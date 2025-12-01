@@ -11,13 +11,18 @@ interface ProjectStaffManagerProps {
   projectId: number;
 }
 
-const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({ projectId }) => {
+const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({
+  projectId,
+}) => {
   const [projectStaff, setProjectStaff] = useState<ProjectStaff[]>([]);
   const [allStaff, setAllStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedStaffId, setSelectedStaffId] = useState<number | null>(null);
   const [roleInProject, setRoleInProject] = useState('');
-  const [editingRole, setEditingRole] = useState<{ roleId: number; role: string } | null>(null);
+  const [editingRole, setEditingRole] = useState<{
+    roleId: number;
+    role: string;
+  } | null>(null);
 
   useEffect(() => {
     fetchProjectStaff();
@@ -91,7 +96,11 @@ const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({ projectId }) 
   };
 
   const handleRemoveStaff = async (roleId: number) => {
-    if (!window.confirm('Are you sure you want to remove this staff member from the project?')) {
+    if (
+      !window.confirm(
+        'Are you sure you want to remove this staff member from the project?'
+      )
+    ) {
       return;
     }
 
@@ -118,7 +127,9 @@ const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({ projectId }) 
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Project Team</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Project Team
+        </h3>
         {projectStaff.length === 0 ? (
           <p className="text-gray-500 text-sm">No team members assigned yet.</p>
         ) : (
@@ -137,13 +148,20 @@ const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({ projectId }) 
                       <input
                         type="text"
                         value={editingRole.role}
-                        onChange={(e) => setEditingRole({ ...editingRole, role: e.target.value })}
+                        onChange={(e) =>
+                          setEditingRole({
+                            ...editingRole,
+                            role: e.target.value,
+                          })
+                        }
                         className="px-3 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="Role in project"
                       />
                       <Button
                         variant="primary"
-                        onClick={() => handleUpdateRole(ps.role_id, editingRole.role)}
+                        onClick={() =>
+                          handleUpdateRole(ps.role_id, editingRole.role)
+                        }
                         className="text-sm py-1 px-3"
                       >
                         Save
@@ -166,7 +184,12 @@ const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({ projectId }) 
                   {!editingRole && (
                     <Button
                       variant="secondary"
-                      onClick={() => setEditingRole({ roleId: ps.role_id, role: ps.staff_role })}
+                      onClick={() =>
+                        setEditingRole({
+                          roleId: ps.role_id,
+                          role: ps.staff_role,
+                        })
+                      }
                       className="text-sm py-1 px-3"
                     >
                       Edit Role
@@ -187,7 +210,9 @@ const ProjectStaffManager: React.FC<ProjectStaffManagerProps> = ({ projectId }) 
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Add Team Member</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Add Team Member
+        </h3>
         <div className="space-y-3">
           <select
             value={selectedStaffId || ''}

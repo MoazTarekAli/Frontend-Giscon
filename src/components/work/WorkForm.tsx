@@ -12,7 +12,12 @@ interface WorkFormProps {
   onCancel: () => void;
 }
 
-const WorkForm: React.FC<WorkFormProps> = ({ staffId, work, onSubmit, onCancel }) => {
+const WorkForm: React.FC<WorkFormProps> = ({
+  staffId,
+  work,
+  onSubmit,
+  onCancel,
+}) => {
   const getInitialFormData = (): CreateWorkInput => {
     if (work) {
       return {
@@ -34,7 +39,8 @@ const WorkForm: React.FC<WorkFormProps> = ({ staffId, work, onSubmit, onCancel }
     };
   };
 
-  const [formData, setFormData] = useState<CreateWorkInput>(getInitialFormData());
+  const [formData, setFormData] =
+    useState<CreateWorkInput>(getInitialFormData());
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -69,13 +75,13 @@ const WorkForm: React.FC<WorkFormProps> = ({ staffId, work, onSubmit, onCancel }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validate()) return;
 
     setIsSubmitting(true);
     const success = await onSubmit(formData);
     setIsSubmitting(false);
-    
+
     if (success) {
       onCancel();
     }
@@ -107,7 +113,9 @@ const WorkForm: React.FC<WorkFormProps> = ({ staffId, work, onSubmit, onCancel }
         </label>
         <textarea
           value={formData.responsibilities}
-          onChange={(e) => setFormData({ ...formData, responsibilities: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, responsibilities: e.target.value })
+          }
           rows={4}
           className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent ${
             errors.responsibilities ? 'border-red-500' : 'border-gray-300'
@@ -137,10 +145,24 @@ const WorkForm: React.FC<WorkFormProps> = ({ staffId, work, onSubmit, onCancel }
       />
 
       <div className="flex space-x-3 pt-4">
-        <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1">
-          {isSubmitting ? 'Saving...' : work ? 'Update Work Experience' : 'Add Work Experience'}
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isSubmitting}
+          className="flex-1"
+        >
+          {isSubmitting
+            ? 'Saving...'
+            : work
+              ? 'Update Work Experience'
+              : 'Add Work Experience'}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={isSubmitting}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
       </div>

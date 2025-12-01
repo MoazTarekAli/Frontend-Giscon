@@ -7,30 +7,40 @@ import Modal from '../components/common/Modal';
 import Button from '../components/common/Button';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import Pagination from '../components/common/Pagination';
-import type { Technology, CreateTechnologyInput, UpdateTechnologyInput } from '../types/technology.types';
+import type {
+  Technology,
+  CreateTechnologyInput,
+  UpdateTechnologyInput,
+} from '../types/technology.types';
 
 const TechnologyPage: React.FC = () => {
-  const { 
-    technologies, 
-    loading, 
-    error, 
-    pagination, 
-    fetchTechnologies, 
-    createTechnology, 
-    updateTechnology, 
-    deleteTechnology 
+  const {
+    technologies,
+    loading,
+    error,
+    pagination,
+    fetchTechnologies,
+    createTechnology,
+    updateTechnology,
+    deleteTechnology,
   } = useTechnology();
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTechnology, setSelectedTechnology] = useState<Technology | null>(null);
+  const [selectedTechnology, setSelectedTechnology] =
+    useState<Technology | null>(null);
 
   useEffect(() => {
     fetchTechnologies(1);
   }, [fetchTechnologies]);
 
-  const handleSubmit = async (data: CreateTechnologyInput | UpdateTechnologyInput) => {
+  const handleSubmit = async (
+    data: CreateTechnologyInput | UpdateTechnologyInput
+  ) => {
     if (selectedTechnology) {
-      return await updateTechnology(selectedTechnology.technology_id, data as UpdateTechnologyInput);
+      return await updateTechnology(
+        selectedTechnology.technology_id,
+        data as UpdateTechnologyInput
+      );
     } else {
       return await createTechnology(data as CreateTechnologyInput);
     }
@@ -58,7 +68,9 @@ const TechnologyPage: React.FC = () => {
     <Layout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-gray-900">Technologies Management</h2>
+          <h2 className="text-3xl font-bold text-gray-900">
+            Technologies Management
+          </h2>
           <Button onClick={handleCreate}>Add New Technology</Button>
         </div>
 
